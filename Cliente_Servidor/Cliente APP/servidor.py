@@ -5,18 +5,16 @@ def criarServidor(porta):
     socket.bind(('', porta))
     socket.listen(1)
 
-    print('O servidor esta ouvindo')
+    print('O servidor está ativo...')
+    
+    try:
+        connectionSocket, addr = socket.accept()
+        connectionSocket.settimeout(30)
 
-    while True:
-        try:
-            connectionSocket, addr = socket.accept()
-            print('Aguardando...')
-            connectionSocket.settimeout(60)
-
-            msg = connectionSocket.recv(1024)
-            print(msg)
-        except Exception as e:
-            break
+        msg = connectionSocket.recv(1024)
+        print('\nMensagem recebida: {}\n\n'.format(msg.decode('utf-8')))
+    except Exception:
+        print('Erro no servidor')
 
     print('O servidor será encerrado.')
-    serverSocket.close()
+    socket.close()
