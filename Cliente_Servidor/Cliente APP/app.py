@@ -6,7 +6,7 @@ import json
 
 def main():
     Thread(target=ss.criarServidor, args=(27000, ), name="Servidor", daemon=False).start()
-
+    input()
     aluno1 = Aluno('João', True)
     aluno2 = Aluno('Maria', True)
     aluno3 = Aluno('José', False)
@@ -17,7 +17,7 @@ def main():
     turma1 = Turma('DAW', 2018, [aluno1, aluno2, aluno3])
     turma2 = Turma('SOD', 2018, [aluno4, aluno5])
 
-    turmas = {'turmas':[ turma1.to_json(), turma2.to_json()]}
+    turmas = {'turmas':[ turma1.to_dict(), turma2.to_dict()]}
     mensagem = json.dumps(turmas)
     
     socket = SocketCliente()

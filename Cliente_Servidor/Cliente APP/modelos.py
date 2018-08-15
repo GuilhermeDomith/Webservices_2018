@@ -12,8 +12,8 @@ class Turma:
     def id(self):
         return self._id
 
-    def to_json(self):
-        return {'id': self._id, 'ano': self.ano, 'curso': self.curso, 'alunos': [a.to_json() for a in self.alunos]}
+    def to_dict(self):
+        return {'id': self._id, 'ano': self.ano, 'curso': self.curso, 'alunos': [a.to_dict() for a in self.alunos]}
 
     def __str__(self):
         alunos = '\n\n'.join([str(a) for a in self.alunos])
@@ -36,7 +36,7 @@ class Aluno:
     def id(self):
         return self._id
 
-    def to_json(self):
+    def to_dict(self):
         return {'id': self._id, 'nome': self.nome, 'matriculado': self.matriculado}
 
     def __str__(self):
