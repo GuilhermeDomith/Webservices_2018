@@ -1,0 +1,4 @@
+*.class
+ServidorAPP/bin/
+ClienteAPP/__pycache__/
+*.pyc
