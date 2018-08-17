@@ -17,7 +17,7 @@ def main():
     turma1 = Turma('DAW', 2018, [aluno1, aluno2, aluno3])
     turma2 = Turma('SOD', 2018, [aluno4, aluno5])
 
-    turmas = {'turmas':[ turma1.to_json(), turma2.to_json()]}
+    turmas = {'turmas':[ turma1.to_dict(), turma2.to_dict()]}
     mensagem = json.dumps(turmas)
     
     socket = SocketCliente()
