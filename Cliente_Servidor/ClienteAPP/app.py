@@ -5,7 +5,7 @@ import servidor as ss
 import json
 
 def main():
-    Thread(target=ss.criarServidor, args=(27000, ), name="Servidor", daemon=False).start()
+    #Thread(target=ss.criarServidor, args=(27000, ), name="Servidor", daemon=False).start()
 
     aluno1 = Aluno('João', True)
     aluno2 = Aluno('Maria', True)
@@ -23,6 +23,7 @@ def main():
     socket = SocketCliente()
     socket.connect()
     socket.send(mensagem.encode('utf-8'))
+    socket.send("\nexit".encode('utf-8'))
     socket.close()
 
 if __name__ == '__main__':

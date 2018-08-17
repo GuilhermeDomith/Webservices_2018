@@ -7,5 +7,5 @@ class SocketCliente(s.socket):
         super().settimeout(30)
 
     
-    def connect(self, address=('127.0.0.1', 27000)):
+    def connect(self, address=('127.0.0.1', 23000)):
         return super().connect(address)
