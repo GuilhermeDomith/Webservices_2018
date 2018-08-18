@@ -2,10 +2,11 @@
 class Turma:
     _num_turmas = 0
 
-    def __init__(self, curso=None, ano=None, alunos=[]):
+    def __init__(self, nome=None, curso=None, ano=None, alunos=[]):
         Turma._num_turmas += 1
         self._id = Turma._num_turmas
         self.ano = ano
+        self.nome = nome
         self.curso = curso
         self.alunos = alunos
 
@@ -13,7 +14,7 @@ class Turma:
         return self._id
 
     def to_dict(self):
-        return {'id': self._id, 'ano': self.ano, 'curso': self.curso, 'alunos': [a.to_dict() for a in self.alunos]}
+        return {'id': self._id, 'nome': self.nome, 'ano': self.ano, 'curso': self.curso, 'alunos': [a.to_dict() for a in self.alunos]}
 
     def __str__(self):
         alunos = '\n\n'.join([str(a) for a in self.alunos])

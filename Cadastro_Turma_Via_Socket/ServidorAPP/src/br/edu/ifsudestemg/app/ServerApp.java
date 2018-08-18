@@ -18,6 +18,7 @@ public class ServerApp {
 	 */
 	public static void main(String[] args) {
 		try(ServerSocket server = new ServerSocket(23000)){
+			System.out.println("Servidor foi iniciado.");
 			
 			while(true) {
 				Socket cliente = server.accept();
@@ -36,14 +37,24 @@ public class ServerApp {
 
 	private static void exibirTurmasCadastradas(ArrayList<Turma> turmas) {
 		for(Turma t : turmas) {
-			String msg = String.format("A turma %s de %d do curso de %s possui %d alunos,"
-					+ " dos quais %d estão matriculados.", t.getCurso(), t.getAno(), t.getCurso(),
-					t.getAlunos().size(), t.getAlunos().size()-1);
+			
+			int num_matriculados = 0;
+			for(Aluno aluno : t.getAlunos()) 
+				if(aluno.isMatriculado())
+					num_matriculados++;
+			
+			String msg = String.format("A turma %s de %d do curso de %s possui %d aluno(s),"
+					+ " dos quais %d estão matriculados.", t.getNome(), t.getAno(), t.getCurso(),
+					t.getAlunos().size(), num_matriculados);
 			
 			System.out.println(msg);
 		}
 	}
-
+	
+	/**
+	 * Converte a string com a estrutura Json passada por parametro para uma lista de 
+	 * objetos turma.
+	 */
 	private static ArrayList<Turma> converterStringJson(String stringJson) {
 		JSONObject jsonObject = new JSONObject(stringJson);
 		JSONArray jsonArrayTurmas = jsonObject.getJSONArray("turmas");
@@ -55,6 +66,7 @@ public class ServerApp {
 			Turma turma = new Turma();
 			turma.setId(jsonObjectTurma.getLong("id"));
 			turma.setCurso(jsonObjectTurma.getString("curso"));
+			turma.setNome(jsonObjectTurma.getString("nome"));
 			turma.setAno(jsonObjectTurma.getInt("ano"));
 
 			JSONArray jsonArrayAlunos = jsonObjectTurma.getJSONArray("alunos");
@@ -80,8 +92,9 @@ public class ServerApp {
 	 * que a conexão pode ser encerrada. Retorna a mensagem enviada pelo cliente.
 	 */
 	private static String atenderCliente(Socket cliente) throws IOException{
-		StringBuffer stringBuffer = new StringBuffer();
+		System.out.println("\nConexão com cliente estabelecida.");
 		
+		StringBuffer stringBuffer = new StringBuffer();
 		try(Scanner inputStream = new Scanner(cliente.getInputStream())){
 			
 			String string = "";
@@ -102,7 +115,7 @@ public class ServerApp {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Conexão com cliente será finalizada.");
+		System.out.println("Conexão com cliente finalizada.");
 		cliente.close();
 		
 		return stringBuffer.toString();

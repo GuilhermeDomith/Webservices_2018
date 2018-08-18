@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Turma {
 	private long id;
+	private String nome;
 	private String curso;
 	private int ano;
 	private ArrayList<Aluno> alunos;
@@ -19,6 +20,14 @@ public class Turma {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getCurso() {
@@ -47,7 +56,7 @@ public class Turma {
 
 	@Override
 	public String toString() {
-		return "\nTurma [id=" + id + ", curso=" + curso + ", ano=" + ano + ", alunos=" + alunos + "]";
+		return "\nTurma [id=" + id + ", nome=" + nome + ", curso=" + curso + ", ano=" + ano + ", alunos=" + alunos + "]";
 	}
 	
 }
