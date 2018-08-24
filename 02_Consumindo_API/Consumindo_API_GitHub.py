@@ -10,16 +10,26 @@ def main():
         if userJson == None:
             continue
 
-        print('Usuário da consulta: {}'.format(userJson['name']))
+        print('Usuário da consulta: {}'.format(userJson['name'].encode('utf-8')))
+
         followersJson = loadJson(getUrl(login+'/followers'))
+        if not followersJson:
+            return
+
         print('%d seguidores:\n'%len(followersJson))
 
         for seguidor in followersJson:
             login = seguidor['login']
             user = loadJson(getUrl(login))
+            if not user:
+                continue
 
             print(user['name'])
+
             repositorios = loadJson(getUrl(login+'/repos'))
+            if not repositorios:
+                continue
+
             for repos in repositorios:
                 print('\t'+repos['name'])
 
@@ -44,7 +54,7 @@ def loadJson(url):
 
             cache = open(cacheFileName, 'w')
             cache.write(conteudo)
-        
+
         cache.close()
     except Exception as e:
         print(e)
