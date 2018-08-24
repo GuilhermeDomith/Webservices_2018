@@ -46,13 +46,13 @@ def loadJson(url):
         e escreve o conteúdo da requisição.
         '''
         try:
-            cache = open(cacheFileName, 'r')
+            cache = open("cache/"+cacheFileName, 'r')
             conteudo = cache.read()
         except:
             urlopen = urllib2.urlopen(url)
             conteudo = urlopen.read()
 
-            cache = open(cacheFileName, 'w')
+            cache = open("cache/"+cacheFileName, 'w')
             cache.write(conteudo)
 
         cache.close()
