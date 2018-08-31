@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CEP</title>
+</head>
+<body>
+
+    <form>
+        <label> Cep
+            <input id="cep" type="text" value="36204758" placeholder="CEP"/>
+        </label>
+        <input id="pesquisar_cep" type="submit" value="Pesquisar">
+    </form>
+
+    <table id='cep-info' style="display: none">
+        
+    </table>
+
+    <script>
+        var pesquisar = document.getElementById("pesquisar_cep");
+        
+        pesquisar.onclick = function (){
+            var cep = document.getElementById('cep').value;
+            consulta_CEP(cep);
+        };
+
+        function consulta_CEP(cep){
+            var req = new XMLHttpRequest();
+
+            req.onerror = function(e){
+                console.log(e);
+            }
+
+            req.onloadstart = function(e){
+                console.log(e);
+            }
+            
+            req.onloadend = function(e){
+                console.log(e);
+            }
+
+            req.open('GET', 'https://viacep.com.br/ws/' + cep + '/json/');
+            req.send(null);
+            
+            console.log('https://viacep.com.br/ws/' + cep + '/json/');
+        }
+    </script>
+    
+</body>
+</html>
