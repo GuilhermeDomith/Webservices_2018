@@ -4,50 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>CEP</title>
 </head>
 <body>
 
-    <form>
-        <label> Cep
-            <input id="cep" type="text" value="36204758" placeholder="CEP"/>
-        </label>
-        <input id="pesquisar_cep" type="submit" value="Pesquisar">
+    <form class="centro">
+        <label> CEP </label>
+        <input id="cep" type="number" placeholder="CEP"/>
+        
+        <button id="pesquisar_cep"> Pesquisar </button>
     </form>
 
-    <table id='cep-info' style="display: none">
-        
+    <table id='cep_info' hidden border="1px" >
+        <tbody>
+
+        </tbody>
     </table>
 
-    <script>
-        var pesquisar = document.getElementById("pesquisar_cep");
-        
-        pesquisar.onclick = function (){
-            var cep = document.getElementById('cep').value;
-            consulta_CEP(cep);
-        };
+    <script src="script.js"></script>
 
-        function consulta_CEP(cep){
-            var req = new XMLHttpRequest();
-
-            req.onerror = function(e){
-                console.log(e);
-            }
-
-            req.onloadstart = function(e){
-                console.log(e);
-            }
-            
-            req.onloadend = function(e){
-                console.log(e);
-            }
-
-            req.open('GET', 'https://viacep.com.br/ws/' + cep + '/json/');
-            req.send(null);
-            
-            console.log('https://viacep.com.br/ws/' + cep + '/json/');
-        }
-    </script>
-    
 </body>
 </html>
