@@ -8,7 +8,7 @@ function consulta_CEP(cep){
 
     var req = new XMLHttpRequest();
     
-    req.onloadend = (e) => { exibir_info_cep(req) }
+    req.onloadend = (e) => { exibir_info_cep(req) };
 
     req.open('GET', 'https://viacep.com.br/ws/' + cep + '/json/');
     req.send(null);
