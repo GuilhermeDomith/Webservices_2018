@@ -1,0 +1,46 @@
+*{
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.card{
+    padding: 20px;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+
+#tempo, #entrada{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap
+}
+
+label{
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+    color: rgb(54, 58, 58);
+}
+
+label span{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: rgb(2, 100, 100);
+    margin-left: 8%;
+}
+
+#tempo div{
+    border-radius: 3px;
+    background-color: #efefef;
+    width: 50%;
+    text-align: center;
+}
+
+#tempo div div{
+    display: flex;
+    width: 200px;
+    flex: 3;
+    flex-wrap: ;
+}
+
