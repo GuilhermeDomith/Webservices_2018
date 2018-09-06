@@ -51,7 +51,7 @@ function exibir_info_cep(req){
         tbody.appendChild(tr);
     }
     
-    document.querySelector('form').classList.remove('centro');
-    document.querySelector('form').classList.add('deslizar-class');
+    document.querySelector('#entrada').classList.remove('centro');
+    document.querySelector('#entrada').classList.add('deslizar-class');
     tabela_cep.hidden = false;
 }
