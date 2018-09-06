@@ -4,14 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Clima e Localização</title>
 </head>
 <body>
-    
-    <div id="clima">
+
+    <div id="entrada" class="card">
+        <label>Cidade
+            <input type="text" placeholder="cidade"/>
+        </label>
+    </div>
+
+    <div id="dados_cidade" class="card">
+            <label id="cidade"> <span></span> </label>
+
+            <label id="coord"> Coordenadas Geográficas
+                <span></span>
+            </label>
+    </div>
+
+    <div id="tempo" class="card">
+        <img src="" alt="Imagem com a condição do tempo."/>
+
+        <div>
+            <label id="temp"> Temperatura
+                <span></span>
+            </label>
+            <div>
+                <label id="temp_min">Min<span></span> </label>
+                <label id="temp_max">Max<span></span> </label>
+            </div>
+        </div>
+
+        
+
+        <label id="nasc_sol"> Nascimento do Sol <span></span> </label>
+        <label id="por_sol"> Pôr do Sol <span></span> </label>
+
+        <label id="pressao"> Pressão <span></span> </label>
+    </div>
+
+    <div id="mapa" class="card">
 
     </div>
     
     <script src="script.js"></script>
 </body>
 </html>
+
