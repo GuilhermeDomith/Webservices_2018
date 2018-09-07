@@ -1,11 +1,11 @@
-var temp_min = document.querySelector("#temp_min span");
-var temp_max = document.querySelector("#temp_max span");
-var temp = document.querySelector("#temp span");
-var coordenada = document.querySelector("#coord span");
-var pressao = document.querySelector("#pressao span");
-var cidade = document.querySelector("#cidade span");
-var nasc_sol = document.querySelector("#nasc_sol span");
-var por_sol = document.querySelector("#por_sol span");
+var temp_min = document.querySelector("#temp_min");
+var temp_max = document.querySelector("#temp_max");
+var temp = document.querySelector("#temp");
+var coordenada = document.querySelector("#coord");
+var pressao = document.querySelector("#pressao");
+var cidade = document.querySelector("#cidade");
+var nasc_sol = document.querySelector("#nasc_sol");
+var por_sol = document.querySelector("#por_sol");
 
 function fazerRequisicaoClima(id){
     var req = new XMLHttpRequest();
@@ -20,20 +20,27 @@ function fazerRequisicaoClima(id){
 }
 
 function exibirDadosClima(){
-    console.log(this.responseText);
-    dados_clima = JSON.parse(this.responseText);
-    temp.innerHTML = dados_clima.main.temp;
-    temp_min.innerHTML = dados_clima.main.temp_min;
-    temp_max.innerHTML = dados_clima.main.temp_max;
-    coordenada.innerHTML = dados_clima.coord.lon + ' + ' +dados_clima.coord.lat;
-    pressao.innerHTML = dados_clima.main.pressure;
+    //console.log(this.responseText);
+    //dados_clima = JSON.parse(this.responseText);
+
+
+    dados_clima = {"coord":{"lon":37.62,"lat":55.75},"weather":[{"id":800,"main":"Clear","description":"clear sky","icon":"01n"}],"base":"stations","main":{"temp":285.89,"pressure":1021,"humidity":76,"temp_min":285.15,"temp_max":287.15},"visibility":10000,"wind":{"speed":2,"deg":80},"clouds":{"all":0},"dt":1536273000,"sys":{"type":1,"id":7325,"message":0.0209,"country":"RU","sunrise":1536201922,"sunset":1536250115},"id":524901,"name":"Moscow","cod":200};
+
+
+
+    temp.innerHTML = dados_clima.main.temp + ' °C';
+    temp_min.innerHTML = dados_clima.main.temp_min + ' °C';
+    temp_max.innerHTML = dados_clima.main.temp_max + ' °C';
+    coordenada.innerHTML = dados_clima.coord.lon + ' + ' +dados_clima.coord.lat; // lat:  21º13'33", long: 43º46'25"
+    pressao.innerHTML = dados_clima.main.pressure + ' mb';
     cidade.innerHTML = dados_clima.name;
-    nasc_sol.innerHTML = dados_clima.sys.sunset;
-    por_sol.innerHTML = dados_clima.sys.sunrise;
+    nasc_sol.innerHTML = dados_clima.sys.sunset + ' hr';
+    por_sol.innerHTML = dados_clima.sys.sunrise + ' hr';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    fazerRequisicaoClima(524901)
+    exibirDadosClima();
+    //fazerRequisicaoClima(524901);
  }, false);
 
 /*class DadosClima{
