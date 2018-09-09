@@ -11,7 +11,6 @@ var icone_clima = document.querySelector('#icone_clima');
 var cidade_busca = document.querySelector('#cidade_busca');
 var buscar_btn = document.querySelector('#buscar_btn');
 var info_erro = document.querySelector('#info_erro');
-var dados_cidade = document.querySelector('#dados_cidade');
 
 buscar_btn.onclick = () => {
     fazerRequisicaoClima(removeAcento(cidade_busca.value));
@@ -26,14 +25,8 @@ cidade_busca.onkeyup = () => {
     info_erro.classList.add('contrair');
 };
 
-document.onanimationend = () => {
-    info_erro.setAttribute('hidden', null);
-    console.log('terminou');
-};
-
 info_erro.addEventListener('animationend', () => {
     info_erro.setAttribute('hidden', null);
-    console.log('terminou');
 });
 
 function fazerRequisicaoClima(cidade){
@@ -58,6 +51,9 @@ function exibirDadosClima(req){
         return;
     }
 
+    dados_cidade.classList.remove('contrair-devagar');
+    dados_cidade.removeAttribute('hidden');
+
     temp.innerHTML = celcius(dados_clima.main.temp) + ' °C';
     temp_min.innerHTML = celcius(dados_clima.main.temp_min) + ' °C';
     temp_max.innerHTML = celcius(dados_clima.main.temp_max) + ' °C';
@@ -67,11 +63,15 @@ function exibirDadosClima(req){
     nasc_sol.innerHTML = hora(dados_clima.sys.sunrise);
     por_sol.innerHTML = hora(dados_clima.sys.sunset);
     icone_clima.src = 'http://openweathermap.org/img/w/'+dados_clima.weather[0].icon+'.png';
+
+    initMap(dados_clima.coord.lat, dados_clima.coord.lon);
 }
 
 function cidadeNaoEncontrada(){
+
     info_erro.classList.remove('contrair');
     info_erro.removeAttribute('hidden');
+
     info_erro.innerHTML = 'Cidade não encontrada.';
 }
 

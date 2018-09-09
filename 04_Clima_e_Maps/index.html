@@ -65,6 +65,20 @@
         animation-duration: 1s;
     }
 
+    #mapa{
+        height: 110%; 
+        width: 100%; 
+        position:absolute; 
+        top: 0; 
+        left: 0; 
+        z-index: 0;
+    }
+
+    #div-entrada,  #dados_cidade, #info_erro{
+        position: relative;
+        z-index: 1;
+    }
+
     @media(max-width: 768px){
         #div-entrada,  #dados_cidade, #info_erro{
             width: 90%;
@@ -155,11 +169,41 @@
         </div>
     </div>
 
-    <div id="mapa" class="card">
+    <div id="mapa"> </div>
 
-    </div>
+    <script>
+    
+    function initMap(lat, lon) {
+        var myLatLng = {lat: -25.363, lng: 131.044};
 
+        myLatLng.lat = lat;
+        myLatLng.lng = lon;
 
+        console.log(myLatLng);
+
+        // Create a map object and specify the DOM element
+        // for display.
+
+        myLatLng.lat += 5;
+        myLatLng.lng -= 20;
+        var map = new google.maps.Map(document.getElementById('mapa'), {
+        center: myLatLng,
+        zoom: 4
+        });
+
+        // Create a marker and set its position.
+        var marker = new google.maps.Marker({
+        map: map,
+        position: myLatLng,
+        title: 'Hello World!'
+        });
+    }
+    
+    </script>
+
+    <scrip src="carregar-mapa.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJX-Yt2gpVWOF4qpmPdiqu8OvpztnVOU&sensor=false" 
+        async defer></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
         crossorigin="anonymous"></script>
