@@ -26,14 +26,11 @@
     }
 
     .fa-caret-down{ color: blue }
-
     
-
-    #div-entrada,  #dados_cidade{
-        background-color: #fdfdfd;
+    #div-entrada,  #dados_cidade, #info_erro{
         width: 40%;
-        margin: 4% 56% 80px 4%;
-        min-width: 440px;
+        margin: 30px auto 30px 30px;
+        min-width: 500px;
     }
 
     #div-entrada{
@@ -41,10 +38,38 @@
         margin-bottom: 0;
     }
 
+    #dados_cidade{
+        background-color: #fdfdfd;
+    }
+
+    #cidade_busca{
+        text-transform: uppercase;
+    }
+
+    @keyframes contrair{
+        30%{
+            color: transparent;
+        }
+
+        to{
+            padding: 0;
+            margin-bottom: -30px;
+            height: 0;
+            color: transparent;
+            background-color: transparent;
+        }
+    }
+
+    .contrair{
+        animation-name: contrair;
+        animation-duration: 1s;
+    }
+
     @media(max-width: 768px){
-        #div-entrada, #dados_cidade{
+        #div-entrada,  #dados_cidade, #info_erro{
             width: 90%;
             margin: 50px 5%;
+            min-width: 0;
         }
     }
     
@@ -59,20 +84,42 @@
                     <label class="input-group-text">Cidade</label>
                 </div>
 
-                <input class="form-control " id="entrada" 
+                <input class="form-control uppercase" id="cidade_busca" 
                     type="text" placeholder="nome da cidade" />
             </div>
 
-            <button class="btn btn-primary">Pesquisar</button>
+            <button class="btn btn-primary" id="buscar_btn">Pesquisar</button>
         </div>
     </div>
+
+    <div class="alert alert-danger" role="alert" id="info_erro" hidden> </div>
 
     <div id="dados_cidade" class="card">
         <div class="media card-body ">
             <div class="media-body container">
                 <h1 class="card-title" id="cidade"></h1>
+            
+                <div class="row ">
+                    <div class="col-sm-12 mt-4">
+                        <label class="font-weight-light h4">Temperatura Atual</label><br>
+                        <i class="fas fa-thermometer-quarter  d-inline"></i>
+                        <p id="temp" class=" h2 font-weight-bold d-inline ml-3"> </p>
+                    </div>
                 
-                <div class="row">
+                    <div class="col mt-4">
+                        <label class="font-weight-light">Mínima</label><br>
+                        <i class="fas fa-caret-down  d-inline"></i>
+                        <p id="temp_min" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                
+                    <div class="col mt-4">
+                        <label class="font-weight-light">Máxima</label><br>
+                        <i class="fas fa-caret-up  d-inline"></i>
+                        <p id="temp_max" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                </div>
+                    
+                <div class="row mt-5">
                     <div class="col-sm mt-4">
                         <label class="font-weight-light">Coordenadas</label><br>
                         <i class="fas  fa-map-marker-alt  d-inline"></i>
@@ -99,33 +146,12 @@
                         <p id="por_sol" class=" h5 font-weight-bold d-inline ml-3"> </p>
                     </div>
                 </div>
-            
-                <div class="row mt-5">
-                    <div class="col-sm-12 mt-4">
-                        <label class="font-weight-light h4">Temperatura Atual</label><br>
-                        <i class="fas fa-thermometer-quarter  d-inline"></i>
-                        <p id="temp" class=" h2 font-weight-bold d-inline ml-3"> </p>
-                    </div>
-                
-                    <div class="col mt-4">
-                        <label class="font-weight-light">Mínima</label><br>
-                        <i class="fas fa-caret-down  d-inline"></i>
-                        <p id="temp_min" class=" h5 font-weight-bold d-inline ml-3"> </p>
-                    </div>
-                
-                    <div class="col mt-4">
-                        <label class="font-weight-light">Máxima</label><br>
-                        <i class="fas fa-caret-up  d-inline"></i>
-                        <p id="temp_max" class=" h5 font-weight-bold d-inline ml-3"> </p>
-                    </div>
-                </div>
 
             </div>
     
             <img id="icone_clima" 
                 height="60px"
-                alt="Imagem com a condição do tempo." 
-                src="http://openweathermap.org/img/w/10d.png"/>
+                alt="Imagem com a condição do tempo." />
         </div>
     </div>
 

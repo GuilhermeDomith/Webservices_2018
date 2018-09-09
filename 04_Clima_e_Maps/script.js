@@ -6,47 +6,95 @@ var pressao = document.querySelector("#pressao");
 var cidade = document.querySelector("#cidade");
 var nasc_sol = document.querySelector("#nasc_sol");
 var por_sol = document.querySelector("#por_sol");
+var icone_clima = document.querySelector('#icone_clima');
 
-function fazerRequisicaoClima(id){
+var cidade_busca = document.querySelector('#cidade_busca');
+var buscar_btn = document.querySelector('#buscar_btn');
+var info_erro = document.querySelector('#info_erro');
+var dados_cidade = document.querySelector('#dados_cidade');
+
+buscar_btn.onclick = () => {
+    fazerRequisicaoClima(removeAcento(cidade_busca.value));
+    cidade_busca.value = '';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    fazerRequisicaoClima('BARBACENA');
+}, false);
+
+cidade_busca.onkeyup = () => {
+    info_erro.classList.add('contrair');
+};
+
+document.onanimationend = () => {
+    info_erro.setAttribute('hidden', null);
+    console.log('terminou');
+};
+
+info_erro.addEventListener('animationend', () => {
+    info_erro.setAttribute('hidden', null);
+    console.log('terminou');
+});
+
+function fazerRequisicaoClima(cidade){
     var req = new XMLHttpRequest();
     const api_key = '17b07ad3bdf211befe17b2d06a798397';
 
-    req.onloadend = exibirDadosClima
+    req.onloadend = () => { exibirDadosClima(req); };
 
-    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?id=524901&APPID='+api_key);
+    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+cidade+'&APPID='+api_key);
     req.send(null);
 
     return req;
 }
 
-function exibirDadosClima(){
-    //console.log(this.responseText);
-    //dados_clima = JSON.parse(this.responseText);
 
+function exibirDadosClima(req){
+    console.log(req.responseText);
+    dados_clima = JSON.parse(req.responseText);
 
-    dados_clima = {"coord":{"lon":37.62,"lat":55.75},"weather":[{"id":800,"main":"Clear","description":"clear sky","icon":"01n"}],"base":"stations","main":{"temp":285.89,"pressure":1021,"humidity":76,"temp_min":285.15,"temp_max":287.15},"visibility":10000,"wind":{"speed":2,"deg":80},"clouds":{"all":0},"dt":1536273000,"sys":{"type":1,"id":7325,"message":0.0209,"country":"RU","sunrise":1536201922,"sunset":1536250115},"id":524901,"name":"Moscow","cod":200};
+    if(dados_clima.cod == '404'){
+        cidadeNaoEncontrada();
+        return;
+    }
 
-
-
-    temp.innerHTML = dados_clima.main.temp + ' °C';
-    temp_min.innerHTML = dados_clima.main.temp_min + ' °C';
-    temp_max.innerHTML = dados_clima.main.temp_max + ' °C';
-    coordenada.innerHTML = dados_clima.coord.lon + ' + ' +dados_clima.coord.lat; // lat:  21º13'33", long: 43º46'25"
-    pressao.innerHTML = dados_clima.main.pressure + ' mb';
+    temp.innerHTML = celcius(dados_clima.main.temp) + ' °C';
+    temp_min.innerHTML = celcius(dados_clima.main.temp_min) + ' °C';
+    temp_max.innerHTML = celcius(dados_clima.main.temp_max) + ' °C';
+    coordenada.innerHTML = dados_clima.coord.lat + ', ' +dados_clima.coord.lon; // lat:  21º13'33", long: 43º46'25"
+    pressao.innerHTML = dados_clima.main.pressure + ' hpa';
     cidade.innerHTML = dados_clima.name;
-    nasc_sol.innerHTML = dados_clima.sys.sunset + ' hr';
-    por_sol.innerHTML = dados_clima.sys.sunrise + ' hr';
+    nasc_sol.innerHTML = hora(dados_clima.sys.sunrise);
+    por_sol.innerHTML = hora(dados_clima.sys.sunset);
+    icone_clima.src = 'http://openweathermap.org/img/w/'+dados_clima.weather[0].icon+'.png';
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    exibirDadosClima();
-    //fazerRequisicaoClima(524901);
- }, false);
+function cidadeNaoEncontrada(){
+    info_erro.classList.remove('contrair');
+    info_erro.removeAttribute('hidden');
+    info_erro.innerHTML = 'Cidade não encontrada.';
+}
 
-/*class DadosClima{
-    constructor(reqJson){
-        var dados = JSON.parse(reqJson);
-        this.semanas = dados['list']
-        this.cidade = dados['city']
-    }
-}*/
+function hora(timestamp){
+    var sunset = new Date(timestamp * 1000);
+
+    return sunset.getHours() +':'+sunset.getMinutes();
+}
+
+function celcius(temp){
+    console.log(temp);
+    console.log(temp - 32);
+
+    return Math.round(temp - 273.15);
+};
+
+function removeAcento (text){       
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    return text;                 
+}
