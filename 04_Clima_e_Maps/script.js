@@ -64,11 +64,25 @@ function exibirDadosClima(req){
     por_sol.innerHTML = hora(dados_clima.sys.sunset);
     icone_clima.src = 'http://openweathermap.org/img/w/'+dados_clima.weather[0].icon+'.png';
 
-    initMap(dados_clima.coord.lat, dados_clima.coord.lon);
+    setarMapa(dados_clima.coord.lat, dados_clima.coord.lon);
+}
+
+function setarMapa(latitude, longitude){
+    var loc = {lat: latitude, lng: longitude};
+
+    var map = new google.maps.Map(document.getElementById('mapa'), {
+        center: {lat: loc.lat,lng: loc.lng - 0.2},
+        zoom: 11
+    });
+
+    var marker = new google.maps.Marker({
+        map: map,
+        position: loc,
+    });
+
 }
 
 function cidadeNaoEncontrada(){
-
     info_erro.classList.remove('contrair');
     info_erro.removeAttribute('hidden');
 
@@ -76,9 +90,8 @@ function cidadeNaoEncontrada(){
 }
 
 function hora(timestamp){
-    var sunset = new Date(timestamp * 1000);
-
-    return sunset.getHours() +':'+sunset.getMinutes();
+    var date = new Date(timestamp * 1000);
+    return date.getHours() +':'+date.getMinutes();
 }
 
 function celcius(temp){
