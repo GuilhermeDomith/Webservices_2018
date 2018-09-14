@@ -51,13 +51,12 @@ function exibirDadosClima(req){
         return;
     }
 
-    dados_cidade.classList.remove('contrair-devagar');
     dados_cidade.removeAttribute('hidden');
 
     temp.innerHTML = celcius(dados_clima.main.temp) + ' °C';
     temp_min.innerHTML = celcius(dados_clima.main.temp_min) + ' °C';
     temp_max.innerHTML = celcius(dados_clima.main.temp_max) + ' °C';
-    coordenada.innerHTML = dados_clima.coord.lat + ', ' +dados_clima.coord.lon; // lat:  21º13'33", long: 43º46'25"
+    coordenada.innerHTML = dados_clima.coord.lat + ', ' +dados_clima.coord.lon;
     pressao.innerHTML = dados_clima.main.pressure + ' hpa';
     cidade.innerHTML = dados_clima.name;
     nasc_sol.innerHTML = hora(dados_clima.sys.sunrise);

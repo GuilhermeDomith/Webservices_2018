@@ -1,46 +1,77 @@
-*{
-    font-family: sans-serif;
-    font-weight: 400;
-    font-size: 1em;
-}
+ 
+    i{ font-size: 1.4em; }
 
-.card{
-    padding: 20px;
-    box-shadow: 0 0 1px 1px rgba(0,0,0,0.5);
-    border-radius: 5px;
-}
+    .fa-map-marker-alt, .fa-caret-up{ color: red }
 
-#tempo, #entrada{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap
-}
+    .fa-angle-double-down{ color: rgb(184, 184, 184) }
 
-label{
-    font-size: 1.2em;
-    display: flex;
-    flex-direction: column;
-    color: rgb(54, 58, 58);
-}
+    .far.fa-sun{ color: rgb(230, 152, 8) }
 
-label span{
-    font-size: 1.3em;
-    font-weight: 600;
-    color: rgb(2, 100, 100);
-    margin-left: 8%;
-}
+    .fas.fa-sun{ color: rgba(255, 230, 0, 0.904) }
 
-#tempo div{
-    border-radius: 3px;
-    background-color: #efefef;
-    width: 50%;
-    text-align: center;
-}
+    .fa-thermometer-quarter{ 
+        color: rgb(53, 155, 67); 
+        font-size: 1.7em;
+    }
 
-#tempo div div{
-    display: flex;
-    width: 200px;
-    flex: 3;
-    flex-wrap: ;
-}
+    .fa-caret-down{ color: blue }
+    
+    #div-entrada,  #dados_cidade, #info_erro{
+        width: 40%;
+        margin: 30px auto 30px 30px;
+        min-width: 500px;
+    }
 
+    #div-entrada{
+        background-color: #f4f4f4;
+        margin-bottom: 0;
+    }
+
+    #dados_cidade{
+        background-color: #fdfdfd;
+    }
+
+    #cidade_busca{
+        text-transform: uppercase;
+    }
+
+    @keyframes contrair{
+        30%{
+            color: transparent;
+        }
+
+        to{
+            padding: 0;
+            margin-bottom: -30px;
+            height: 0;
+            color: transparent;
+            background-color: transparent;
+        }
+    }
+
+    .contrair{
+        animation-name: contrair;
+        animation-duration: 1s;
+    }
+
+    #mapa{
+        height: 110%; 
+        width: 100%; 
+        position:absolute; 
+        top: 0; 
+        left: 0; 
+        z-index: 0;
+    }
+
+    #div-entrada,  #dados_cidade, #info_erro{
+        position: relative;
+        z-index: 1;
+    }
+
+    @media(max-width: 768px){
+        #div-entrada,  #dados_cidade, #info_erro{
+            width: 90%;
+            margin: 50px 5%;
+            min-width: 0;
+        }
+    }

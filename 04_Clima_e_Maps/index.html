@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,88 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Clima e Localização</title>
-
-    <style>
-    
-    i{ font-size: 1.4em; }
-
-    .fa-map-marker-alt, .fa-caret-up{ color: red }
-
-    .fa-angle-double-down{ color: rgb(184, 184, 184) }
-
-    .far.fa-sun{ color: rgb(230, 152, 8) }
-
-    .fas.fa-sun{ color: rgba(255, 230, 0, 0.904) }
-
-    .fa-thermometer-quarter{ 
-        color: rgb(53, 155, 67); 
-        font-size: 1.7em;
-    }
-
-    .fa-caret-down{ color: blue }
-    
-    #div-entrada,  #dados_cidade, #info_erro{
-        width: 40%;
-        margin: 30px auto 30px 30px;
-        min-width: 500px;
-    }
-
-    #div-entrada{
-        background-color: #f4f4f4;
-        margin-bottom: 0;
-    }
-
-    #dados_cidade{
-        background-color: #fdfdfd;
-    }
-
-    #cidade_busca{
-        text-transform: uppercase;
-    }
-
-    @keyframes contrair{
-        30%{
-            color: transparent;
-        }
-
-        to{
-            padding: 0;
-            margin-bottom: -30px;
-            height: 0;
-            color: transparent;
-            background-color: transparent;
-        }
-    }
-
-    .contrair{
-        animation-name: contrair;
-        animation-duration: 1s;
-    }
-
-    #mapa{
-        height: 110%; 
-        width: 100%; 
-        position:absolute; 
-        top: 0; 
-        left: 0; 
-        z-index: 0;
-    }
-
-    #div-entrada,  #dados_cidade, #info_erro{
-        position: relative;
-        z-index: 1;
-    }
-
-    @media(max-width: 768px){
-        #div-entrada,  #dados_cidade, #info_erro{
-            width: 90%;
-            margin: 50px 5%;
-            min-width: 0;
-        }
-    }
-    
-    </style>
 </head>
 <body>
 
@@ -170,38 +90,8 @@
     </div>
 
     <div id="mapa"> </div>
-    <script>
-    
-    function initMap() {
-        var myLatLng = {lat: -25.363, lng: 131.044};
-
-
-        // Create a map object and specify the DOM element
-        // for display.
-
-        myLatLng.lat += 5;
-        myLatLng.lng -= 20;
-        map = new google.maps.Map(document.getElementById('mapa'));
-
-        //console.log(map);
-        // { 
-        // center: myLatLng,
-        // zoom: 4
-        // });
-
-        // Create a marker and set its position.
-        // var marker = new google.maps.Marker({
-        // map: map,
-        // position: myLatLng,
-        // title: 'Hello World!'
-        // });
-    }
-    
-    </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJX-Yt2gpVWOF4qpmPdiqu8OvpztnVOU"></script>
-
-    <scrip src="carregar-mapa.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
         crossorigin="anonymous"></script>
