@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<item>
+  <tipo>produto</tipo>
+  <id>42</id>
+  <nome>Smartphone Moto G</nome>
+  <preco>
+    <unidade>R$</unidade>
+    <a_vista>519</a_vista>
+    <a_prazo>630</a_prazo>
+  </preco>
+  <cameras>
+    <camera tipo="frontal" resolucao="5" unidade="Mp"/>
+    <camera tipo="traseira" resolucao="1.2" unidade="Mp"/>
+  </cameras>
+</item>

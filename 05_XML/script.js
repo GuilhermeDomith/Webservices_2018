@@ -13,7 +13,6 @@ var buscar_btn = document.querySelector('#buscar_btn');
 var info_erro = document.querySelector('#info_erro');
 
 
-
 buscar_btn.onclick = () => {
     fazerRequisicaoClima(removeAcento(cidade_busca.value));
     cidade_busca.value = '';
@@ -37,7 +36,7 @@ function fazerRequisicaoClima(cidade){
 
     req.onloadend = () => { exibirDadosClima(req); };
 
-    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+cidade+'&APPID='+api_key);
+    req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+cidade+'&mode=xml&APPID='+api_key);
     req.send(null);
 
     return req;
@@ -45,31 +44,41 @@ function fazerRequisicaoClima(cidade){
 
 
 function exibirDadosClima(req){
-    console.log(req.responseText);
-    dados_clima = JSON.parse(req.responseText);
+    //console.log(req.responseText);
+    dados_clima = new DOMParser().parseFromString(req.responseText, "text/xml");
 
-    if(dados_clima.cod == '404'){
+    console.log(dados_clima.getElementsByTagName('temperature')[0].getAttribute('value'));
+
+
+    /*if(dados_clima.cod == '404'){
         cidadeNaoEncontrada();
         return;
-    }
+    }*/
 
     dados_cidade.removeAttribute('hidden');
 
-    temp.innerHTML = celcius(dados_clima.main.temp) + ' °C';
-    temp_min.innerHTML = celcius(dados_clima.main.temp_min) + ' °C';
-    temp_max.innerHTML = celcius(dados_clima.main.temp_max) + ' °C';
-    coordenada.innerHTML = dados_clima.coord.lat + ', ' +dados_clima.coord.lon;
-    pressao.innerHTML = dados_clima.main.pressure + ' hpa';
-    cidade.innerHTML = dados_clima.name;
-    nasc_sol.innerHTML = hora(dados_clima.sys.sunrise);
-    por_sol.innerHTML = hora(dados_clima.sys.sunset);
-    icone_clima.src = 'http://openweathermap.org/img/w/'+dados_clima.weather[0].icon+'.png';
+    var tempxml = dados_clima.getElementsByTagName('temperature')[0];
+    var pressure = dados_clima.getElementsByTagName('pressure')[0];
+    var coordxml = dados_clima.getElementsByTagName('coord')[0];
+    var cidadexml = dados_clima.getElementsByTagName('city')[0];
+    var sunxml = dados_clima.getElementsByTagName('sun')[0];
+    var weatherxml = dados_clima.getElementsByTagName('weather')[0];
 
-    setarMapa(dados_clima.coord.lat, dados_clima.coord.lon);
+    temp.innerHTML = celcius(tempxml.getAttribute('value')) + ' °C';
+    temp_min.innerHTML = celcius(tempxml.getAttribute('min')) + ' °C';
+    temp_max.innerHTML = celcius(tempxml.getAttribute('max')) + ' °C';
+    coordenada.innerHTML = coordxml.getAttribute('lat') + ', ' + coordxml.getAttribute('lon');
+    pressao.innerHTML = pressure.getAttribute('value') + ' hpa';
+    cidade.innerHTML = cidadexml.getAttribute('name');
+    nasc_sol.innerHTML = hora(sunxml.getAttribute('rise'));
+    por_sol.innerHTML = hora(sunxml.getAttribute('set'));
+    icone_clima.src = 'http://openweathermap.org/img/w/'+weatherxml.getAttribute('icon')+'.png';
+
+    setarMapa(coordxml.getAttribute('lat'), coordxml.getAttribute('lon'));
 }
 
 function setarMapa(latitude, longitude){
-    var loc = {lat: latitude, lng: longitude};
+    var loc = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
 
     var map = new google.maps.Map(document.getElementById('mapa'), {
         center: {lat: loc.lat,lng: loc.lng - 0.2},
@@ -91,7 +100,7 @@ function cidadeNaoEncontrada(){
 }
 
 function hora(timestamp){
-    var date = new Date(timestamp * 1000);
+    var date = new Date(timestamp);
     return date.getHours() +':'+date.getMinutes();
 }
 

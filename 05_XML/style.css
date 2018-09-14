@@ -1,0 +1,77 @@
+ 
+    i{ font-size: 1.4em; }
+
+    .fa-map-marker-alt, .fa-caret-up{ color: red }
+
+    .fa-angle-double-down{ color: rgb(184, 184, 184) }
+
+    .far.fa-sun{ color: rgb(230, 152, 8) }
+
+    .fas.fa-sun{ color: rgba(255, 230, 0, 0.904) }
+
+    .fa-thermometer-quarter{ 
+        color: rgb(53, 155, 67); 
+        font-size: 1.7em;
+    }
+
+    .fa-caret-down{ color: blue }
+    
+    #div-entrada,  #dados_cidade, #info_erro{
+        width: 40%;
+        margin: 30px auto 30px 30px;
+        min-width: 500px;
+    }
+
+    #div-entrada{
+        background-color: #f4f4f4;
+        margin-bottom: 0;
+    }
+
+    #dados_cidade{
+        background-color: #fdfdfd;
+    }
+
+    #cidade_busca{
+        text-transform: uppercase;
+    }
+
+    @keyframes contrair{
+        30%{
+            color: transparent;
+        }
+
+        to{
+            padding: 0;
+            margin-bottom: -30px;
+            height: 0;
+            color: transparent;
+            background-color: transparent;
+        }
+    }
+
+    .contrair{
+        animation-name: contrair;
+        animation-duration: 1s;
+    }
+
+    #mapa{
+        height: 110%; 
+        width: 100%; 
+        position:absolute; 
+        top: 0; 
+        left: 0; 
+        z-index: 0;
+    }
+
+    #div-entrada,  #dados_cidade, #info_erro{
+        position: relative;
+        z-index: 1;
+    }
+
+    @media(max-width: 768px){
+        #div-entrada,  #dados_cidade, #info_erro{
+            width: 90%;
+            margin: 50px 5%;
+            min-width: 0;
+        }
+    }

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Clima e Localização</title>
+</head>
+<body>
+
+    <div id="div-entrada" class="card">
+        <div class="card-body">
+            <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Cidade</label>
+                </div>
+
+                <input class="form-control uppercase" id="cidade_busca" 
+                    type="text" placeholder="nome da cidade" />
+            </div>
+
+            <button class="btn btn-primary" id="buscar_btn">Pesquisar</button>
+        </div>
+    </div>
+
+    <div class="alert alert-danger" role="alert" id="info_erro" hidden> </div>
+
+    <div id="dados_cidade" class="card">
+        <div class="media card-body ">
+            <div class="media-body container">
+                <h1 class="card-title" id="cidade"></h1>
+            
+                <div class="row ">
+                    <div class="col-sm-12 mt-4">
+                        <label class="font-weight-light h4">Temperatura Atual</label><br>
+                        <i class="fas fa-thermometer-quarter  d-inline"></i>
+                        <p id="temp" class=" h2 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                
+                    <div class="col mt-4">
+                        <label class="font-weight-light">Mínima</label><br>
+                        <i class="fas fa-caret-down  d-inline"></i>
+                        <p id="temp_min" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                
+                    <div class="col mt-4">
+                        <label class="font-weight-light">Máxima</label><br>
+                        <i class="fas fa-caret-up  d-inline"></i>
+                        <p id="temp_max" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                </div>
+                    
+                <div class="row mt-5">
+                    <div class="col-sm mt-4">
+                        <label class="font-weight-light">Coordenadas</label><br>
+                        <i class="fas  fa-map-marker-alt  d-inline"></i>
+                        <p id="coord" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                
+                    <div class="col-sm mt-4">
+                        <label class="font-weight-light">Pressão</label><br>
+                        <i class="fas  fa-angle-double-down  d-inline"></i>
+                        <p id="pressao" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm mt-4">
+                        <label class="font-weight-light">Nascer do Sol</label><br>
+                        <i class="fas fa-sun  d-inline"></i>
+                        <p id="nasc_sol" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                
+                    <div class="col-sm mt-4">
+                        <label class="font-weight-light">Pôr do Sol</label><br>
+                        <i class="far fa-sun  d-inline"></i>
+                        <p id="por_sol" class=" h5 font-weight-bold d-inline ml-3"> </p>
+                    </div>
+                </div>
+
+            </div>
+    
+            <img id="icone_clima" 
+                height="60px"
+                alt="Imagem com a condição do tempo." />
+        </div>
+    </div>
+
+    <div id="mapa"> </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtJX-Yt2gpVWOF4qpmPdiqu8OvpztnVOU"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
