@@ -12,11 +12,17 @@ var cidade_busca = document.querySelector('#cidade_busca');
 var buscar_btn = document.querySelector('#buscar_btn');
 var info_erro = document.querySelector('#info_erro');
 
-
 buscar_btn.onclick = () => {
     fazerRequisicaoClima(removeAcento(cidade_busca.value));
     cidade_busca.value = '';
-}
+};
+
+cidade_busca.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        buscar_btn.click();
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     fazerRequisicaoClima('BARBACENA');
@@ -29,6 +35,29 @@ cidade_busca.onkeyup = () => {
 info_erro.addEventListener('animationend', () => {
     info_erro.setAttribute('hidden', null);
 });
+
+document.body.onresize = function() {
+    map.setCenter((document.body.clientWidth <= 768)? centerMapV : centerMapH);
+};
+
+function setarMapa(latitude, longitude){
+    coordMapa = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+    centerMapH = new google.maps.LatLng(coordMapa.lat, coordMapa.lng - 0.2);
+    centerMapV = new google.maps.LatLng(coordMapa.lat + 0.3, coordMapa.lng);
+    
+
+    map = new google.maps.Map(document.getElementById('mapa'), {
+        center: (document.body.clientWidth <= 768)? centerMapV : centerMapH,
+        zoom: 11
+    });
+
+
+    var marker = new google.maps.Marker({
+        map: map,
+        position: coordMapa,
+    });
+
+}
 
 function fazerRequisicaoClima(cidade){
     var req = new XMLHttpRequest();
@@ -47,13 +76,11 @@ function exibirDadosClima(req){
     //console.log(req.responseText);
     dados_clima = new DOMParser().parseFromString(req.responseText, "text/xml");
 
-    console.log(dados_clima.getElementsByTagName('temperature')[0].getAttribute('value'));
-
-
-    /*if(dados_clima.cod == '404'){
+    erro =  dados_clima.getElementsByTagName('cod')[0];
+    if(erro != null && erro.innerHTML == '404'){
         cidadeNaoEncontrada();
         return;
-    }*/
+    }
 
     dados_cidade.removeAttribute('hidden');
 
@@ -77,21 +104,6 @@ function exibirDadosClima(req){
     setarMapa(coordxml.getAttribute('lat'), coordxml.getAttribute('lon'));
 }
 
-function setarMapa(latitude, longitude){
-    var loc = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
-
-    var map = new google.maps.Map(document.getElementById('mapa'), {
-        center: {lat: loc.lat,lng: loc.lng - 0.2},
-        zoom: 11
-    });
-
-    var marker = new google.maps.Marker({
-        map: map,
-        position: loc,
-    });
-
-}
-
 function cidadeNaoEncontrada(){
     info_erro.classList.remove('contrair');
     info_erro.removeAttribute('hidden');
@@ -100,14 +112,11 @@ function cidadeNaoEncontrada(){
 }
 
 function hora(timestamp){
-    var date = new Date(timestamp);
+    var date = new Date(timestamp + '+0000');
     return date.getHours() +':'+date.getMinutes();
 }
 
 function celcius(temp){
-    console.log(temp);
-    console.log(temp - 32);
-
     return Math.round(temp - 273.15);
 };
 
