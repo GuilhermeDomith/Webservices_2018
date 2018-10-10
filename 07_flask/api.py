@@ -4,6 +4,7 @@ from lxml import etree
 from flask import Flask, request
 
 app = Flask(__name__)
+nao_apagar = ['testa_api.py', __file__]
 
 @app.route('/arquivos/json', methods=['GET'])
 def arquivos_json():
@@ -24,13 +25,13 @@ def arquivos_xml():
 
 
 @app.route('/arquivos/<nome_arquivo>', methods=['GET'])
-def arquivos(nome_arquivo):
+def arquivo(nome_arquivo):
 
-    retorno = dict(arquivo=nome_arquivo)
+    retorno = {'arquivo':nome_arquivo}
     try: 
         retorno['conteudo'] = open(nome_arquivo).read()
     except FileNotFoundError: 
-        retorno['status'] = 'Arquivo nao encontrado.'
+        retorno['erro'] = 'Arquivo nao encontrado.'
 
     return json.dumps(retorno)
 
@@ -38,7 +39,7 @@ def arquivos(nome_arquivo):
 @app.route('/arquivos', methods=['DELETE'])
 def arquivos_delete():
     files = os.listdir()
-    files.remove(__file__)
+    [files.remove(f) for f in nao_apagar]
 
     for file in files:
         os.remove(file)
@@ -48,29 +49,32 @@ def arquivos_delete():
 
 @app.route('/arquivos/<nome_arquivo>', methods=['DELETE'])
 def arquivo_delete(nome_arquivo):
+    retorno = {'arquivo':nome_arquivo}
 
-    if nome_arquivo == __file__:
-        status = "O arquivo não pode ser removido."
+    if nome_arquivo in nao_apagar:
+        retorno['erro'] = "O arquivo não pode ser removido."
     else:
         try: 
             os.remove(nome_arquivo)
-            status = 'Removido com sucesso.'
+            retorno['status'] = 'Removido com sucesso.'
         except FileNotFoundError: 
-            status = 'Arquivo nao encontrado.'
+            retorno['erro'] = 'Arquivo nao encontrado.'
 
-    return json.dumps({'arquivo': nome_arquivo, 'status': status})
+    return json.dumps(retorno)
 
 
 @app.route('/arquivos/<nome_arquivo>', methods=['PUT'])
-def arquivo_update(nome_arquivo):
+def arquivo_update(nome_arquivo):   
+
+    if nome_arquivo in nao_apagar:
+        erro = "O arquivo não pode ser atualizado."
+        return json.dumps({'arquivo': nome_arquivo, 'erro': erro})
     
     conteudo = request.form['dados']
     with open(nome_arquivo, 'w') as file:
         file.write(conteudo)
 
-    return arquivos(nome_arquivo)
-
-
+    return json.dumps({'arquivo':nome_arquivo, 'status': 'Arquivo gravado com sucesso.'})
 
 
 if __name__ == '__main__':
